@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\test_sprite.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\test_sprite.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PixelRecolor.Core\PixelRecolor.Core.csproj" />
+    <ProjectReference Include="..\PixelRecolor.Wpf\PixelRecolor.Wpf.csproj" />
+  </ItemGroup>
+
+</Project>

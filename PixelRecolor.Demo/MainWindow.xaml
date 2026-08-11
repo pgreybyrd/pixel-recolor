@@ -1,0 +1,44 @@
+﻿<Window x:Class="PixelRecolor.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PixelRecolor Demo"
+        Width="600"
+        Height="450">
+
+    <StackPanel Margin="20">
+
+        <TextBlock Text="ORIGINAL"
+                   FontSize="18"/>
+
+        <Image x:Name="OriginalImage"
+               Width="128"
+               Height="128"
+               Stretch="Uniform"
+               RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+
+        <TextBlock Text="RECOLORED"
+                   FontSize="18"
+                   Margin="0,20,0,0"/>
+
+        <Image x:Name="RecoloredImage"
+               Width="128"
+               Height="128"
+               Stretch="Uniform"
+               RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+
+        <Slider x:Name="HueSlider"
+                Minimum="0"
+                Maximum="360"
+                Value="285"
+                Margin="0,20,0,0"
+                ValueChanged="ColorSlider_ValueChanged"/>
+
+        <Slider x:Name="SaturationSlider"
+                Minimum="0"
+                Maximum="1"
+                Value="0.8"
+                Margin="0,10,0,0"
+                ValueChanged="ColorSlider_ValueChanged"/>
+
+    </StackPanel>
+</Window>

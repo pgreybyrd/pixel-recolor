@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelRecolor.Wpf", "PixelRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelRecolor.MonoGame", "PixelRecolor.MonoGame\PixelRecolor.MonoGame.csproj", "{980B9A43-5544-4F97-9C73-AD731F643C27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelRecolor.Demo", "PixelRecolor.Demo\PixelRecolor.Demo.csproj", "{D38FE561-27A6-40DA-A0E0-E93036DF8FDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{980B9A43-5544-4F97-9C73-AD731F643C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{980B9A43-5544-4F97-9C73-AD731F643C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{980B9A43-5544-4F97-9C73-AD731F643C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D38FE561-27A6-40DA-A0E0-E93036DF8FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D38FE561-27A6-40DA-A0E0-E93036DF8FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D38FE561-27A6-40DA-A0E0-E93036DF8FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D38FE561-27A6-40DA-A0E0-E93036DF8FDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
