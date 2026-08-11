@@ -79,4 +79,40 @@ public static class PixelRecolorer
         return (byte)Math.Round(
             Math.Clamp(value, 0, 1) * 255);
     }
+
+    public static RgbColor RecolorGrayscale(
+        RgbColor source,
+        double hue,
+        double saturation,
+        double maskStrength)
+    {
+        maskStrength =
+            Math.Clamp(maskStrength, 0, 1);
+
+        if (maskStrength <= 0)
+            return source;
+
+        var recolored =
+            RecolorGrayscale(
+                source,
+                hue,
+                saturation);
+
+        return new RgbColor(
+            Blend(source.R, recolored.R, maskStrength),
+            Blend(source.G, recolored.G, maskStrength),
+            Blend(source.B, recolored.B, maskStrength),
+            source.A);
+    }
+
+    private static byte Blend(
+        byte original,
+        byte recolored,
+        double amount)
+    {
+        return (byte)Math.Round(
+            original +
+            (recolored - original) *
+            amount);
+    }
 }

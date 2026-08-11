@@ -7,6 +7,7 @@ namespace PixelRecolor.Demo;
 public partial class MainWindow : Window
 {
     private BitmapSource? _source;
+    private BitmapSource? _mask;
 
     public MainWindow()
     {
@@ -17,6 +18,11 @@ public partial class MainWindow : Window
             _source = new BitmapImage(
                 new Uri(
                     "pack://application:,,,/Assets/test_sprite.png",
+                    UriKind.Absolute));
+
+            _mask = new BitmapImage(
+                new Uri(
+                    "pack://application:,,,/Assets/test_sprite_mask.png",
                     UriKind.Absolute));
 
             OriginalImage.Source =
@@ -36,6 +42,7 @@ public partial class MainWindow : Window
     private void UpdateRecolor()
     {
         if (_source is null ||
+            _mask is null ||
             RecoloredImage is null ||
             HueSlider is null ||
             SaturationSlider is null)
@@ -46,6 +53,7 @@ public partial class MainWindow : Window
         RecoloredImage.Source =
             BitmapRecolorer.RecolorGrayscale(
                 _source,
+                _mask,
                 HueSlider.Value,
                 SaturationSlider.Value);
     }
