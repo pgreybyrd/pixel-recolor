@@ -1,4 +1,5 @@
-﻿using PixelRecolor.Wpf;
+﻿using PixelRecolor.Core;
+using PixelRecolor.Wpf;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
@@ -22,7 +23,7 @@ public partial class MainWindow : Window
 
             _mask = new BitmapImage(
                 new Uri(
-                    "pack://application:,,,/Assets/test_sprite_mask.png",
+                    "pack://application:,,,/Assets/test_sprite_channels.png",
                     UriKind.Absolute));
 
             OriginalImage.Source =
@@ -43,18 +44,32 @@ public partial class MainWindow : Window
     {
         if (_source is null ||
             _mask is null ||
-            RecoloredImage is null ||
-            HueSlider is null ||
-            SaturationSlider is null)
+            RecoloredImage is null)
         {
             return;
         }
 
+        var red =
+            new RecolorSettings(
+                RedHueSlider.Value,
+                RedSaturationSlider.Value);
+
+        var green =
+            new RecolorSettings(
+                GreenHueSlider.Value,
+                GreenSaturationSlider.Value);
+
+        var blue =
+            new RecolorSettings(
+                BlueHueSlider.Value,
+                BlueSaturationSlider.Value);
+
         RecoloredImage.Source =
-            BitmapRecolorer.RecolorGrayscale(
+            BitmapRecolorer.RecolorChannels(
                 _source,
                 _mask,
-                HueSlider.Value,
-                SaturationSlider.Value);
+                red,
+                green,
+                blue);
     }
 }

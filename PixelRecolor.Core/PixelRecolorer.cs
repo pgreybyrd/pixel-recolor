@@ -105,6 +105,57 @@ public static class PixelRecolorer
             source.A);
     }
 
+    public static RgbColor RecolorChannels(
+        RgbColor source,
+        RgbColor mask,
+        RecolorSettings red,
+        RecolorSettings green,
+        RecolorSettings blue)
+    {
+        double redStrength =
+            mask.R / 255.0;
+
+        double greenStrength =
+            mask.G / 255.0;
+
+        double blueStrength =
+            mask.B / 255.0;
+
+        var result = source;
+
+        if (redStrength > 0)
+        {
+            result =
+                RecolorGrayscale(
+                    result,
+                    red.Hue,
+                    red.Saturation,
+                    redStrength);
+        }
+
+        if (greenStrength > 0)
+        {
+            result =
+                RecolorGrayscale(
+                    result,
+                    green.Hue,
+                    green.Saturation,
+                    greenStrength);
+        }
+
+        if (blueStrength > 0)
+        {
+            result =
+                RecolorGrayscale(
+                    result,
+                    blue.Hue,
+                    blue.Saturation,
+                    blueStrength);
+        }
+
+        return result;
+    }
+
     private static byte Blend(
         byte original,
         byte recolored,

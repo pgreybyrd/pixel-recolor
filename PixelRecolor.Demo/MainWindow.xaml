@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="PixelRecolor Demo"
         Width="600"
-        Height="450">
+        Height="700">
 
     <StackPanel Margin="20">
 
@@ -26,19 +26,53 @@
                Stretch="Uniform"
                RenderOptions.BitmapScalingMode="NearestNeighbor"/>
 
-        <Slider x:Name="HueSlider"
-                Minimum="0"
-                Maximum="360"
-                Value="285"
-                Margin="0,20,0,0"
-                ValueChanged="ColorSlider_ValueChanged"/>
+        <StackPanel Margin="0,20,0,0">
 
-        <Slider x:Name="SaturationSlider"
-                Minimum="0"
-                Maximum="1"
-                Value="0.8"
-                Margin="0,10,0,0"
-                ValueChanged="ColorSlider_ValueChanged"/>
+            <TextBlock Text="RED CHANNEL"/>
+
+            <Slider x:Name="RedHueSlider"
+                    Minimum="0"
+                    Maximum="360"
+                    Value="285"
+                    ValueChanged="ColorSlider_ValueChanged"/>
+
+            <Slider x:Name="RedSaturationSlider"
+                    Minimum="0"
+                    Maximum="1"
+                    Value="0.8"
+                    ValueChanged="ColorSlider_ValueChanged"/>
+
+            <TextBlock Text="GREEN CHANNEL"
+                       Margin="0,10,0,0"/>
+
+            <Slider x:Name="GreenHueSlider"
+                    Minimum="0"
+                    Maximum="360"
+                    Value="45"
+                    ValueChanged="ColorSlider_ValueChanged"/>
+
+            <Slider x:Name="GreenSaturationSlider"
+                    Minimum="0"
+                    Maximum="1"
+                    Value="0.8"
+                    ValueChanged="ColorSlider_ValueChanged"/>
+
+            <TextBlock Text="BLUE CHANNEL"
+                       Margin="0,10,0,0"/>
+
+            <Slider x:Name="BlueHueSlider"
+                    Minimum="0"
+                    Maximum="360"
+                    Value="180"
+                    ValueChanged="ColorSlider_ValueChanged"/>
+
+            <Slider x:Name="BlueSaturationSlider"
+                    Minimum="0"
+                    Maximum="1"
+                    Value="0.8"
+                    ValueChanged="ColorSlider_ValueChanged"/>
+
+        </StackPanel>
 
     </StackPanel>
 </Window>

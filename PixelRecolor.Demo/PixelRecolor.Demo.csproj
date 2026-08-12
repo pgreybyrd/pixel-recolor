@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Assets\test_sprite.png" />
+    <None Remove="Assets\test_sprite_channels.png" />
     <None Remove="Assets\test_sprite_mask.png" />
   </ItemGroup>
 
@@ -17,6 +18,7 @@
     <Resource Include="Assets\test_sprite.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\test_sprite_channels.png" />
     <Resource Include="Assets\test_sprite_mask.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
