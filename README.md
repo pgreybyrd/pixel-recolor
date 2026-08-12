@@ -13,8 +13,12 @@ PixelRecolor separates framework-independent color processing from rendering-spe
 - Alpha transparency preservation
 - Selective recoloring with grayscale masks
 - Partial recoloring using grayscale mask strength
+- RGB multi-channel recolor masks
+- Three independently recolorable regions from a single mask
+- Independent hue and saturation controls per channel
 - Framework-independent core library
 - WPF `BitmapSource` support
+- Interactive WPF demo
 - MonoGame adapter planned
 
 ## Projects
@@ -131,37 +135,79 @@ Framework-specific projects translate their native image representations into da
 
 This keeps recoloring behavior consistent between applications while allowing each renderer to handle its own image types.
 
+## Multi-Channel Masks
+
+PixelRecolor supports RGB channel masks that define three independently recolorable regions within a single mask image.
+
+Each color channel represents a separate recolor region:
+
+```text
+Red channel   → region 1
+Green channel → region 2
+Blue channel  → region 3
+Black         → unchanged
+```
+
+For example, a clothing sprite could define:
+
+```text
+Red   → main fabric
+Green → trim
+Blue  → accents
+```
+
+Each region receives its own `RecolorSettings`, allowing independent hue and saturation control while preserving the brightness and shading of the original grayscale artwork.
+
+```csharp
+var red =
+    new RecolorSettings(
+        hue: 285,
+        saturation: 0.8);
+
+var green =
+    new RecolorSettings(
+        hue: 45,
+        saturation: 0.8);
+
+var blue =
+    new RecolorSettings(
+        hue: 180,
+        saturation: 0.8);
+
+BitmapSource recolored =
+    BitmapRecolorer.RecolorChannels(
+        source,
+        channelMask,
+        red,
+        green,
+        blue);
+```
+
+A single grayscale sprite can therefore produce many color combinations without requiring separate artwork for every variation.
+
+### Channel Mask Format
+
+For clearly separated regions, mask pixels can use pure RGB values:
+
+```text
+#FF0000 → red channel
+#00FF00 → green channel
+#0000FF → blue channel
+#000000 → unchanged
+```
+
+Channel intensity represents the strength of that channel's influence.
+
+The current implementation is designed primarily for masks where each recolorable pixel belongs to one channel. Behavior for overlapping channel values will be refined as the library develops.
+
 ## Planned Features
 
-- RGB multi-channel masks
-- Multiple independently recolorable regions
-- Per-channel hue, saturation, and value controls
+- Define blending behavior for overlapping RGB mask channels
+- Per-channel value/brightness adjustment
 - MonoGame `Texture2D` adapter
 - Recolored sprite caching
 - Additional recolor modes
 - Expanded demo controls
-
-### Multi-Channel Masks
-
-A future RGB mask will allow a single mask image to define multiple independently recolorable regions.
-
-For example:
-
-```text
-Red channel   → main fabric
-Green channel → trim
-Blue channel  → accents
-```
-
-This could allow one clothing sprite to use:
-
-```text
-Main fabric → purple
-Trim        → gold
-Accents     → teal
-```
-
-without requiring separate artwork for every color combination.
 
 ## Intended Uses
 
@@ -180,4 +226,6 @@ PixelRecolor is designed for reusable runtime customization of pixel-art assets 
 
 Early development.
 
-Grayscale recoloring and grayscale mask support are currently implemented and working in the WPF demo. MonoGame support and multi-channel recoloring are planned.
+Grayscale recoloring, grayscale strength masks, and RGB multi-channel recoloring are implemented and working in the WPF demo.
+
+MonoGame support, caching, and additional recoloring controls are planned.
