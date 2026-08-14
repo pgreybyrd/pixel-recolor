@@ -9,12 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\rat-regions.png" />
+    <None Remove="Assets\rat.png" />
     <None Remove="Assets\test_sprite.png" />
     <None Remove="Assets\test_sprite_channels.png" />
     <None Remove="Assets\test_sprite_mask.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Rat\rat-regions.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\rat.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\test_sprite.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

@@ -2,6 +2,19 @@
 
 public static class PixelRecolorer
 {
+    public static RegionId? FindRegion(
+        RgbColor maskColor,
+        IReadOnlyList<RegionDefinition> regions)
+    {
+        foreach (var region in regions)
+        {
+            if (region.MaskColor == maskColor)
+                return region.Id;
+        }
+
+        return null;
+    }
+
     public static RgbColor RecolorGrayscale(
         RgbColor source,
         double hue,
@@ -103,6 +116,33 @@ public static class PixelRecolorer
             Blend(source.G, recolored.G, maskStrength),
             Blend(source.B, recolored.B, maskStrength),
             source.A);
+    }
+
+    public static RgbColor RecolorRegion(
+        RgbColor source,
+        RgbColor mask,
+        IReadOnlyList<RegionDefinition> regions,
+        RegionPalette palette)
+    {
+        var regionId =
+            FindRegion(
+                mask,
+                regions);
+
+        if (regionId is null)
+            return source;
+
+        if (!palette.TryGet(
+                regionId.Value,
+                out var settings))
+        {
+            return source;
+        }
+
+        return RecolorGrayscale(
+            source,
+            settings.Hue,
+            settings.Saturation);
     }
 
     public static RgbColor RecolorChannels(
