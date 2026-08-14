@@ -18,13 +18,20 @@ public static class PixelRecolorer
     public static RgbColor RecolorGrayscale(
         RgbColor source,
         double hue,
-        double saturation)
+        double saturation,
+        double brightness = 1.0)
     {
         double value =
             Math.Max(
                 source.R,
                 Math.Max(source.G, source.B))
             / 255.0;
+
+        value =
+            Math.Clamp(
+                value * brightness,
+                0,
+                1);
 
         var recolored =
             HsvToRgb(
@@ -93,7 +100,7 @@ public static class PixelRecolorer
             Math.Clamp(value, 0, 1) * 255);
     }
 
-    public static RgbColor RecolorGrayscale(
+    public static RgbColor RecolorGrayscaleMasked(
         RgbColor source,
         double hue,
         double saturation,
@@ -142,7 +149,8 @@ public static class PixelRecolorer
         return RecolorGrayscale(
             source,
             settings.Hue,
-            settings.Saturation);
+            settings.Saturation,
+            settings.Brightness);
     }
 
     public static RgbColor RecolorChannels(
@@ -166,7 +174,7 @@ public static class PixelRecolorer
         if (redStrength > 0)
         {
             result =
-                RecolorGrayscale(
+                RecolorGrayscaleMasked(
                     result,
                     red.Hue,
                     red.Saturation,
@@ -176,7 +184,7 @@ public static class PixelRecolorer
         if (greenStrength > 0)
         {
             result =
-                RecolorGrayscale(
+                RecolorGrayscaleMasked(
                     result,
                     green.Hue,
                     green.Saturation,
@@ -186,7 +194,7 @@ public static class PixelRecolorer
         if (blueStrength > 0)
         {
             result =
-                RecolorGrayscale(
+                RecolorGrayscaleMasked(
                     result,
                     blue.Hue,
                     blue.Saturation,

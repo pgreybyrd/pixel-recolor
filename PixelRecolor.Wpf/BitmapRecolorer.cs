@@ -135,7 +135,7 @@ public static class BitmapRecolorer
                 maskPixels[i + 2] / 255.0;
 
             var recolored =
-                PixelRecolorer.RecolorGrayscale(
+                PixelRecolorer.RecolorGrayscaleMasked(
                     new RgbColor(
                         r,
                         g,

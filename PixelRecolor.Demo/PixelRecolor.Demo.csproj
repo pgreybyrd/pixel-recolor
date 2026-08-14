@@ -11,12 +11,20 @@
   <ItemGroup>
     <None Remove="Assets\rat-regions.png" />
     <None Remove="Assets\rat.png" />
+    <None Remove="Assets\Rat\Palettes\black.json" />
+    <None Remove="Assets\Rat\Palettes\silver.json" />
     <None Remove="Assets\test_sprite.png" />
     <None Remove="Assets\test_sprite_channels.png" />
     <None Remove="Assets\test_sprite_mask.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Rat\Palettes\black.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Palettes\silver.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Rat\rat-regions.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
