@@ -10,21 +10,19 @@
         <TextBlock Text="ORIGINAL"
                    FontSize="18"/>
 
-        <Image x:Name="OriginalImage"
-               Width="128"
-               Height="128"
-               Stretch="Uniform"
-               RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+        <Image
+                x:Name="OriginalImage"
+                Stretch="Uniform"
+                RenderOptions.BitmapScalingMode="NearestNeighbor" />
 
         <TextBlock Text="RECOLORED"
                    FontSize="18"
                    Margin="0,20,0,0"/>
 
-        <Image x:Name="RecoloredImage"
-               Width="128"
-               Height="128"
-               Stretch="Uniform"
-               RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+        <Image
+                x:Name="RecoloredImage"
+                Stretch="Uniform"
+                RenderOptions.BitmapScalingMode="NearestNeighbor" />
 
         <StackPanel Margin="0,20,0,0">
 

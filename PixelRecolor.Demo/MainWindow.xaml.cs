@@ -1,6 +1,7 @@
 ﻿using PixelRecolor.Core;
 using PixelRecolor.Wpf;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace PixelRecolor.Demo;
@@ -28,8 +29,12 @@ public partial class MainWindow : Window
                         "pack://application:,,,/Assets/Rat/rat-regions.png",
                         UriKind.Absolute));
 
-            OriginalImage.Source =
-                _source;
+            OriginalImage.Source = _source;
+
+            SetPixelPerfectSize(
+                OriginalImage,
+                _source,
+                2);
 
             UpdateRecolor();
         };
@@ -94,51 +99,92 @@ public partial class MainWindow : Window
         var palette =
             new RegionPalette();
 
+        // Nose - soft dusty pink
         palette.Set(
             new RegionId("nose"),
-            new RecolorSettings(0, 1.0));
+            new RecolorSettings(350, 0.30));
 
+        // Ears - warm pink
         palette.Set(
             new RegionId("ears"),
-            new RecolorSettings(30, 1.0));
+            new RecolorSettings(350, 0.22));
 
+        // Eyes - near-black neutral
         palette.Set(
             new RegionId("eyes"),
-            new RecolorSettings(60, 1.0));
+            new RecolorSettings(0, 0.0));
 
+        // Front paws - pale pink
         palette.Set(
             new RegionId("paws"),
-            new RecolorSettings(120, 1.0));
+            new RecolorSettings(350, 0.16));
 
+        // Feet - pale pink, slightly warmer
         palette.Set(
             new RegionId("feet"),
-            new RecolorSettings(170, 1.0));
+            new RecolorSettings(355, 0.14));
 
+        // Head - neutral grey
         palette.Set(
             new RegionId("head"),
-            new RecolorSettings(275, 1.0));
+            new RecolorSettings(215, 0.08));
 
+        // Body - cool grey
         palette.Set(
             new RegionId("body"),
-            new RecolorSettings(145, 1.0));
+            new RecolorSettings(215, 0.10));
 
+        // Belly - softer/warmer grey
         palette.Set(
             new RegionId("belly"),
-            new RecolorSettings(310, 1.0));
+            new RecolorSettings(25, 0.06));
 
+        // Tail - muted dusty pink
         palette.Set(
             new RegionId("tail"),
-            new RecolorSettings(240, 1.0));
+            new RecolorSettings(350, 0.20));
 
-        RecoloredImage.Source =
+        var recolored =
             BitmapRecolorer.RecolorRegions(
                 _source,
                 _regionMask,
                 regions,
                 palette);
+
+        RecoloredImage.Source =
+            recolored;
+
+        SetPixelPerfectSize(
+            RecoloredImage,
+            recolored,
+            2);
+    }
+
+    private static void SetPixelPerfectSize(
+        System.Windows.Controls.Image image,
+        BitmapSource source,
+        int scale)
+    {
+        var dpi =
+            VisualTreeHelper.GetDpi(image);
+
+        image.Width =
+            source.PixelWidth *
+            scale /
+            dpi.DpiScaleX;
+
+        image.Height =
+            source.PixelHeight *
+            scale /
+            dpi.DpiScaleY;
+
+        RenderOptions.SetBitmapScalingMode(
+            image,
+            BitmapScalingMode.NearestNeighbor);
+
+        image.SnapsToDevicePixels = true;
     }
 }
-
 
 //using PixelRecolor.Core;
 //using PixelRecolor.Wpf;
