@@ -13,6 +13,11 @@
     <None Remove="Assets\rat.png" />
     <None Remove="Assets\Rat\Palettes\black.json" />
     <None Remove="Assets\Rat\Palettes\silver.json" />
+    <None Remove="Assets\Rat\Patterns\blaze.png" />
+    <None Remove="Assets\Rat\Patterns\hooded.png" />
+    <None Remove="Assets\Rat\Patterns\masked.png" />
+    <None Remove="Assets\Rat\Patterns\spotted.png" />
+    <None Remove="Assets\Rat\Patterns\variegated.png" />
     <None Remove="Assets\test_sprite.png" />
     <None Remove="Assets\test_sprite_channels.png" />
     <None Remove="Assets\test_sprite_mask.png" />
@@ -25,6 +30,11 @@
     <Resource Include="Assets\Rat\Palettes\silver.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Rat\Patterns\blaze.png" />
+    <Resource Include="Assets\Rat\Patterns\hooded.png" />
+    <Resource Include="Assets\Rat\Patterns\masked.png" />
+    <Resource Include="Assets\Rat\Patterns\spotted.png" />
+    <Resource Include="Assets\Rat\Patterns\variegated.png" />
     <Resource Include="Assets\Rat\rat-regions.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

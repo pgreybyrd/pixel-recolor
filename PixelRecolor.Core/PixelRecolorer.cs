@@ -214,4 +214,18 @@ public static class PixelRecolorer
             (recolored - original) *
             amount);
     }
+
+    public static RgbColor RecolorPattern(
+        RgbColor pattern,
+        RecolorSettings settings)
+    {
+        if (pattern.A == 0)
+            return pattern;
+
+        return RecolorGrayscale(
+            pattern,
+            settings.Hue,
+            settings.Saturation,
+            settings.Brightness);
+    }
 }

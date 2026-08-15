@@ -11,6 +11,7 @@ public partial class MainWindow : Window
 {
     private BitmapSource? _source;
     private BitmapSource? _regionMask;
+    private BitmapSource? _hoodPattern;
 
     public MainWindow()
     {
@@ -29,6 +30,12 @@ public partial class MainWindow : Window
                     new Uri(
                         "pack://application:,,,/Assets/Rat/rat-regions.png",
                         UriKind.Absolute));
+
+            _hoodPattern =
+                new BitmapImage(
+                    new Uri(
+                        "pack://application:,,,/Assets/Rat/Patterns/hooded.png",
+            UriKind.Absolute));
 
             OriginalImage.Source = _source;
 
@@ -52,6 +59,7 @@ public partial class MainWindow : Window
     {
         if (_source is null ||
             _regionMask is null ||
+            _hoodPattern is null ||
             RecoloredImage is null)
         {
             return;
@@ -160,12 +168,36 @@ public partial class MainWindow : Window
                 regions,
                 palette);
 
+        var hoodSettings =
+            new RecolorSettings(
+                290,
+                0.85,
+                0.75);
+
+        var recoloredHood =
+            BitmapRecolorer.RecolorPattern(
+                _hoodPattern,
+                hoodSettings);
+
+        var finalRat =
+            BitmapRecolorer.Composite(
+                recolored,
+                recoloredHood);
+
         RecoloredImage.Source =
-            recolored;
+            finalRat;
 
         SetPixelPerfectSize(
             RecoloredImage,
-            recolored,
+            finalRat,
+            2);
+
+        //PatternImage.Source =
+        //    recoloredHood;
+
+        SetPixelPerfectSize(
+            PatternImage,
+            recoloredHood,
             2);
     }
 

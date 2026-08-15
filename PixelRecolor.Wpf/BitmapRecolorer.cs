@@ -385,4 +385,192 @@ public static class BitmapRecolorer
 
         return result;
     }
+
+    public static BitmapSource RecolorPattern(
+        BitmapSource pattern,
+        RecolorSettings settings)
+    {
+        var formatted =
+            new FormatConvertedBitmap(
+                pattern,
+                PixelFormats.Bgra32,
+                null,
+                0);
+
+        int width =
+            formatted.PixelWidth;
+
+        int height =
+            formatted.PixelHeight;
+
+        int stride =
+            width * 4;
+
+        byte[] pixels =
+            new byte[height * stride];
+
+        formatted.CopyPixels(
+            pixels,
+            stride,
+            0);
+
+        for (int i = 0; i < pixels.Length; i += 4)
+        {
+            byte b = pixels[i];
+            byte g = pixels[i + 1];
+            byte r = pixels[i + 2];
+            byte a = pixels[i + 3];
+
+            if (a == 0)
+                continue;
+
+            var recolored =
+                PixelRecolorer.RecolorPattern(
+                    new RgbColor(
+                        r,
+                        g,
+                        b,
+                        a),
+                    settings);
+
+            pixels[i] =
+                recolored.B;
+
+            pixels[i + 1] =
+                recolored.G;
+
+            pixels[i + 2] =
+                recolored.R;
+
+            pixels[i + 3] =
+                recolored.A;
+        }
+
+        var result =
+            BitmapSource.Create(
+                width,
+                height,
+                formatted.DpiX,
+                formatted.DpiY,
+                PixelFormats.Bgra32,
+                null,
+                pixels,
+                stride);
+
+        result.Freeze();
+
+        return result;
+    }
+
+    public static BitmapSource Composite(
+        BitmapSource baseImage,
+        BitmapSource overlayImage)
+    {
+        var formattedBase =
+            new FormatConvertedBitmap(
+                baseImage,
+                PixelFormats.Bgra32,
+                null,
+                0);
+
+        var formattedOverlay =
+            new FormatConvertedBitmap(
+                overlayImage,
+                PixelFormats.Bgra32,
+                null,
+                0);
+
+        if (formattedBase.PixelWidth != formattedOverlay.PixelWidth ||
+            formattedBase.PixelHeight != formattedOverlay.PixelHeight)
+        {
+            throw new ArgumentException(
+                "Base image and overlay image must have matching dimensions.");
+        }
+
+        int width =
+            formattedBase.PixelWidth;
+
+        int height =
+            formattedBase.PixelHeight;
+
+        int stride =
+            width * 4;
+
+        byte[] basePixels =
+            new byte[height * stride];
+
+        byte[] overlayPixels =
+            new byte[height * stride];
+
+        formattedBase.CopyPixels(
+            basePixels,
+            stride,
+            0);
+
+        formattedOverlay.CopyPixels(
+            overlayPixels,
+            stride,
+            0);
+
+        for (int i = 0; i < basePixels.Length; i += 4)
+        {
+            byte overlayA =
+                overlayPixels[i + 3];
+
+            if (overlayA == 0)
+                continue;
+
+            double alpha =
+                overlayA / 255.0;
+
+            basePixels[i] =
+                BlendChannel(
+                    basePixels[i],
+                    overlayPixels[i],
+                    alpha);
+
+            basePixels[i + 1] =
+                BlendChannel(
+                    basePixels[i + 1],
+                    overlayPixels[i + 1],
+                    alpha);
+
+            basePixels[i + 2] =
+                BlendChannel(
+                    basePixels[i + 2],
+                    overlayPixels[i + 2],
+                    alpha);
+
+            basePixels[i + 3] =
+                (byte)Math.Round(
+                    overlayA +
+                    basePixels[i + 3] *
+                    (1.0 - alpha));
+        }
+
+        var result =
+            BitmapSource.Create(
+                width,
+                height,
+                formattedBase.DpiX,
+                formattedBase.DpiY,
+                PixelFormats.Bgra32,
+                null,
+                basePixels,
+                stride);
+
+        result.Freeze();
+
+        return result;
+    }
+
+    private static byte BlendChannel(
+        byte background,
+        byte foreground,
+        double alpha)
+    {
+        return (byte)Math.Round(
+            foreground * alpha +
+            background * (1.0 - alpha));
+    }
 }
