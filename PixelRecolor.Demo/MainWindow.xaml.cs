@@ -107,7 +107,7 @@ public partial class MainWindow : Window
 
         var paletteJson =
             LoadResourceText(
-                $"Assets/Rat/Palettes/{appearance.Palette}.json");
+                $"Assets/Rat/Palettes/{appearance.Traits.Palette}.json");
 
         var palette =
             RegionPaletteLoader.Load(
@@ -119,7 +119,7 @@ public partial class MainWindow : Window
                 _regionMask,
                 regions,
                 palette,
-                appearance,
+                appearance.Traits,
 
                 patternId =>
                     LoadBitmap(

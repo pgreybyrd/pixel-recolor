@@ -10,7 +10,7 @@ namespace PixelRecolor.Wpf
             BitmapSource regionMask,
             IReadOnlyList<RegionDefinition> regions,
             RegionPalette palette,
-            CreatureAppearanceDefinition appearance,
+            CreatureAppearanceTraits traits,
             Func<string, BitmapSource> patternLoader,
             Func<string, BitmapSource> accessoryLoader,
             Func<string, BitmapSource> effectLoader)
@@ -22,7 +22,7 @@ namespace PixelRecolor.Wpf
                     regions,
                     palette);
 
-            foreach (var pattern in appearance.Patterns)
+            foreach (var pattern in traits.Patterns)
             {
                 result =
                     ApplyOverlay(
@@ -31,7 +31,7 @@ namespace PixelRecolor.Wpf
                         pattern.Recolor);
             }
 
-            foreach (var accessory in appearance.Accessories)
+            foreach (var accessory in traits.Accessories)
             {
                 result =
                     ApplyOverlay(
@@ -40,7 +40,7 @@ namespace PixelRecolor.Wpf
                         accessory.Recolor);
             }
 
-            foreach (var effect in appearance.Effects)
+            foreach (var effect in traits.Effects)
             {
                 result =
                     ApplyOverlay(
