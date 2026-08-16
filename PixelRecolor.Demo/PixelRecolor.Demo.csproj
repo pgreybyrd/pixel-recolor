@@ -11,6 +11,11 @@
   <ItemGroup>
     <None Remove="Assets\rat-regions.png" />
     <None Remove="Assets\rat.png" />
+    <None Remove="Assets\Rat\Accessories\crown.png" />
+    <None Remove="Assets\Rat\Accessories\santa.png" />
+    <None Remove="Assets\Rat\Accessories\top_hat-2.png" />
+    <None Remove="Assets\Rat\Accessories\top_hat.png" />
+    <None Remove="Assets\Rat\Accessories\witch_hat.png" />
     <None Remove="Assets\Rat\Palettes\black.json" />
     <None Remove="Assets\Rat\Palettes\silver.json" />
     <None Remove="Assets\Rat\Patterns\blaze.png" />
@@ -24,17 +29,42 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Rat\Accessories\crown.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Accessories\santa.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Accessories\top_hat-2.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Accessories\top_hat.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Accessories\witch_hat.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Rat\Palettes\black.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Rat\Palettes\silver.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\Rat\Patterns\blaze.png" />
-    <Resource Include="Assets\Rat\Patterns\hooded.png" />
-    <Resource Include="Assets\Rat\Patterns\masked.png" />
-    <Resource Include="Assets\Rat\Patterns\spotted.png" />
-    <Resource Include="Assets\Rat\Patterns\variegated.png" />
+    <Resource Include="Assets\Rat\Patterns\blaze.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Patterns\hooded.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Patterns\masked.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Patterns\spotted.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Patterns\variegated.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Rat\rat-regions.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

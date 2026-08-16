@@ -12,6 +12,7 @@ public partial class MainWindow : Window
     private BitmapSource? _source;
     private BitmapSource? _regionMask;
     private BitmapSource? _hoodPattern;
+    private BitmapSource? _topHatAccessory;
 
     public MainWindow()
     {
@@ -35,7 +36,13 @@ public partial class MainWindow : Window
                 new BitmapImage(
                     new Uri(
                         "pack://application:,,,/Assets/Rat/Patterns/hooded.png",
-            UriKind.Absolute));
+                        UriKind.Absolute));
+
+            _topHatAccessory =
+                new BitmapImage(
+                    new Uri(
+                        "pack://application:,,,/Assets/Rat/Accessories/top_hat.png",
+                        UriKind.Absolute));
 
             OriginalImage.Source = _source;
 
@@ -60,6 +67,7 @@ public partial class MainWindow : Window
         if (_source is null ||
             _regionMask is null ||
             _hoodPattern is null ||
+            _topHatAccessory is null ||
             RecoloredImage is null)
         {
             return;
@@ -179,10 +187,26 @@ public partial class MainWindow : Window
                 _hoodPattern,
                 hoodSettings);
 
-        var finalRat =
+        var hatSettings =
+            new RecolorSettings(
+                25,
+                0.15,
+                0.20);
+
+        var recoloredHat =
+            BitmapRecolorer.RecolorPattern(
+                _topHatAccessory,
+                hatSettings);
+
+        var ratWithHood =
             BitmapRecolorer.Composite(
                 recolored,
                 recoloredHood);
+
+        var finalRat =
+            BitmapRecolorer.Composite(
+                ratWithHood,
+                recoloredHat);
 
         RecoloredImage.Source =
             finalRat;
