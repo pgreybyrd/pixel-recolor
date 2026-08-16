@@ -1,5 +1,5 @@
 ﻿namespace PixelRecolor.Core;
 
-public sealed record PatternDefinition(
+public sealed record OverlayDefinition(
     string Id,
     RecolorSettings? Recolor);

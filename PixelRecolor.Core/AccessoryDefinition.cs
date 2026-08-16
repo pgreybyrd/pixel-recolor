@@ -2,4 +2,4 @@
 
 public sealed record AccessoryDefinition(
     string Id,
-    RecolorSettings Color);
+    RecolorSettings? Recolor);

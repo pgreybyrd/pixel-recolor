@@ -11,8 +11,6 @@ public partial class MainWindow : Window
 {
     private BitmapSource? _source;
     private BitmapSource? _regionMask;
-    private BitmapSource? _hoodPattern;
-    private BitmapSource? _topHatAccessory;
 
     public MainWindow()
     {
@@ -30,18 +28,6 @@ public partial class MainWindow : Window
                 new BitmapImage(
                     new Uri(
                         "pack://application:,,,/Assets/Rat/rat-regions.png",
-                        UriKind.Absolute));
-
-            _hoodPattern =
-                new BitmapImage(
-                    new Uri(
-                        "pack://application:,,,/Assets/Rat/Patterns/hooded.png",
-                        UriKind.Absolute));
-
-            _topHatAccessory =
-                new BitmapImage(
-                    new Uri(
-                        "pack://application:,,,/Assets/Rat/Accessories/top_hat.png",
                         UriKind.Absolute));
 
             OriginalImage.Source = _source;
@@ -66,8 +52,6 @@ public partial class MainWindow : Window
     {
         if (_source is null ||
             _regionMask is null ||
-            _hoodPattern is null ||
-            _topHatAccessory is null ||
             RecoloredImage is null)
         {
             return;
@@ -113,115 +97,48 @@ public partial class MainWindow : Window
                     new RgbColor(2, 6, 247))
             };
 
-        //var palette =
-        //    new RegionPalette();
+        var appearanceJson =
+            LoadResourceText(
+                "Assets/Rat/Appearances/sir_rattington.json");
 
-        //// Nose - soft dusty pink
-        //palette.Set(
-        //    new RegionId("nose"),
-        //    new RecolorSettings(350, 0.30));
-
-        //// Ears - warm pink
-        //palette.Set(
-        //    new RegionId("ears"),
-        //    new RecolorSettings(350, 0.22));
-
-        //// Eyes - near-black neutral
-        //palette.Set(
-        //    new RegionId("eyes"),
-        //    new RecolorSettings(0, 0.0));
-
-        //// Front paws - pale pink
-        //palette.Set(
-        //    new RegionId("paws"),
-        //    new RecolorSettings(350, 0.16));
-
-        //// Feet - pale pink, slightly warmer
-        //palette.Set(
-        //    new RegionId("feet"),
-        //    new RecolorSettings(355, 0.14));
-
-        //// Head - neutral grey
-        //palette.Set(
-        //    new RegionId("head"),
-        //    new RecolorSettings(215, 0.08, 0.35));
-
-        //// Body - cool grey
-        //palette.Set(
-        //    new RegionId("body"),
-        //    new RecolorSettings(215, 0.10, 0.32));
-
-        //// Belly - softer/warmer grey
-        //palette.Set(
-        //    new RegionId("belly"),
-        //    new RecolorSettings(25, 0.06, 0.40));
-
-        //// Tail - muted dusty pink
-        //palette.Set(
-        //    new RegionId("tail"),
-        //    new RecolorSettings(350, 0.20));
+        var appearance =
+            CreatureAppearanceLoader.Load(
+                appearanceJson);
 
         var paletteJson =
             LoadResourceText(
-                "Assets/Rat/Palettes/black.json");
+                $"Assets/Rat/Palettes/{appearance.Palette}.json");
 
         var palette =
             RegionPaletteLoader.Load(
                 paletteJson);
 
-        var recolored =
-            BitmapRecolorer.RecolorRegions(
+        var result =
+            CreatureAppearanceRenderer.Build(
                 _source,
                 _regionMask,
                 regions,
-                palette);
+                palette,
+                appearance,
 
-        var hoodSettings =
-            new RecolorSettings(
-                290,
-                0.85,
-                0.75);
+                patternId =>
+                    LoadBitmap(
+                        $"Assets/Rat/Patterns/{patternId}.png"),
 
-        var recoloredHood =
-            BitmapRecolorer.RecolorPattern(
-                _hoodPattern,
-                hoodSettings);
+                accessoryId =>
+                    LoadBitmap(
+                        $"Assets/Rat/Accessories/{accessoryId}.png"),
 
-        var hatSettings =
-            new RecolorSettings(
-                25,
-                0.15,
-                0.20);
-
-        var recoloredHat =
-            BitmapRecolorer.RecolorPattern(
-                _topHatAccessory,
-                hatSettings);
-
-        var ratWithHood =
-            BitmapRecolorer.Composite(
-                recolored,
-                recoloredHood);
-
-        var finalRat =
-            BitmapRecolorer.Composite(
-                ratWithHood,
-                recoloredHat);
+                effectId =>
+                    LoadBitmap(
+                        $"Assets/Rat/Effects/{effectId}.png"));
 
         RecoloredImage.Source =
-            finalRat;
+            result;
 
         SetPixelPerfectSize(
             RecoloredImage,
-            finalRat,
-            2);
-
-        //PatternImage.Source =
-        //    recoloredHood;
-
-        SetPixelPerfectSize(
-            PatternImage,
-            recoloredHood,
+            result,
             2);
     }
 
@@ -267,5 +184,19 @@ public partial class MainWindow : Window
             new StreamReader(resource.Stream);
 
         return reader.ReadToEnd();
+    }
+
+    private static BitmapSource LoadBitmap(
+        string resourcePath)
+    {
+        var bitmap =
+            new BitmapImage(
+                new Uri(
+                    $"pack://application:,,,/{resourcePath}",
+                    UriKind.Absolute));
+
+        bitmap.Freeze();
+
+        return bitmap;
     }
 }

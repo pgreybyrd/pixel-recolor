@@ -16,6 +16,7 @@
     <None Remove="Assets\Rat\Accessories\top_hat-2.png" />
     <None Remove="Assets\Rat\Accessories\top_hat.png" />
     <None Remove="Assets\Rat\Accessories\witch_hat.png" />
+    <None Remove="Assets\Rat\Appearances\sir_rattington.json" />
     <None Remove="Assets\Rat\Palettes\black.json" />
     <None Remove="Assets\Rat\Palettes\silver.json" />
     <None Remove="Assets\Rat\Patterns\blaze.png" />
@@ -42,6 +43,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Rat\Accessories\witch_hat.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Rat\Appearances\sir_rattington.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Rat\Palettes\black.json">
